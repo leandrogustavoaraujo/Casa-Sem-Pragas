@@ -187,7 +187,7 @@ src="https://www.facebook.com/tr?id=989728143663966&ev=PageView&noscript=1"
 
   <section id="hero" class="pad">
     <div class="wrap">
-      <div class="badge-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> +9.600 Downloads em 2025/2026</div>
+      <div class="badge-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> +<span id="download-counter">9.600</span> Downloads em 2026</div>
       <h1 class="h1 display">EXTERMINE <span class="g">DE UMA VEZ POR TODAS</span> AS PRAGAS DA SUA CASA</h1>
       <p class="h1-sub">Descubra como aplicar o mesmo método das dedetizadoras — ensinado por quem trabalhou 5 anos no ramo, gastando muito pouco.</p>
 
@@ -371,6 +371,26 @@ src="https://www.facebook.com/tr?id=989728143663966&ev=PageView&noscript=1"
   const now = new Date();
   const urgencyDate = document.getElementById('urgency-date');
   if (urgencyDate) urgencyDate.textContent = now.getDate().toString().padStart(2,'0') + '/' + (now.getMonth()+1).toString().padStart(2,'0') + '/' + now.getFullYear();
+
+  // Contador de downloads: já carrega em 9.600, e sobe rápido em seguida pra passar sensação de FOMO
+  (function() {
+    const el = document.getElementById('download-counter');
+    if (!el) return;
+    const fmt = n => n.toLocaleString('pt-BR');
+
+    let value = 9600;
+    el.textContent = fmt(value);
+
+    function scheduleNext() {
+      const delay = 1500 + Math.random() * 3500; // 1,5 a 5s, sorteado a cada vez — ritmo de "gente entrando agora"
+      setTimeout(() => {
+        value += (Math.random() < 0.25 ? 2 : 1); // às vezes pula 2, pra parecer mais de uma pessoa ao mesmo tempo
+        el.textContent = fmt(value);
+        scheduleNext();
+      }, delay);
+    }
+    scheduleNext();
+  })();
 
   document.querySelectorAll('.js-checkout').forEach(btn => {
     btn.addEventListener('click', () => { if (typeof fbq === 'function') fbq('track', 'InitiateCheckout'); });
