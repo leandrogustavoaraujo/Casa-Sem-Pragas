@@ -24,6 +24,15 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=989728143663966&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- Utmify UTMs Script -->
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+<!-- End Utmify UTMs Script -->
 <style>
   :root {
     --cream: #F7F5EF;
@@ -500,6 +509,8 @@ src="https://www.facebook.com/tr?id=989728143663966&ev=PageView&noscript=1"
   })();
 
   document.querySelectorAll('.js-checkout').forEach(btn => {
+    const params = window.location.search;
+    if (params) { btn.href = btn.href + params; }
     btn.addEventListener('click', () => { if (typeof fbq === 'function') fbq('track', 'InitiateCheckout'); });
   });
 </script>
